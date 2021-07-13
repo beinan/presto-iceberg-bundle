@@ -1,0 +1,4 @@
+---
+startDelaySeconds: 0
+hostPort: 127.0.0.1:39999
+ssl: false

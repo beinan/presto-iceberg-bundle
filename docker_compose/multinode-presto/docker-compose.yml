@@ -1,0 +1,43 @@
+version: '3.3'
+services:
+  presto-master:
+    build: ${DOCKER_CONF_LOCATION}/presto
+    hostname: presto-master
+    command: /docker/volumes/conf/presto/presto-launcher-wrapper.sh multinode-master run
+    ports:
+      - '8080:8080'
+      - '5005:5005'
+    depends_on:
+      - hadoop-master
+    volumes:
+      - ${PRESTO_SERVER_DIR}:/docker/volumes/presto-server
+      - ../../logs:/docker/volumes/logs
+      - ../../conf:/docker/volumes/conf
+      - ../../conf/presto/etc/multinode-master-jvm.config:/docker/volumes/conf/presto/etc/jvm.config
+
+  presto-worker:
+    build: ${DOCKER_CONF_LOCATION}/presto
+    hostname: presto-worker
+    command: /docker/volumes/conf/presto/presto-launcher-wrapper.sh multinode-worker run
+    ports:
+      - '7896:7896'
+      - '8081:8081'
+      - '39999:39999'
+      - '39998:39998'
+      - '38080:38080'
+    depends_on:
+      - presto-master
+    volumes_from:
+      - presto-master
+    volumes:
+      - ../../conf/presto/etc/multinode-worker-jvm.config:/docker/volumes/conf/presto/etc/jvm.config
+
+  prometheus:
+    image: prom/prometheus
+    hostname: prometheus
+    volumes:
+      - ../../conf/prometheus:/etc/prometheus
+    depends_on:
+      - presto-worker
+    ports:
+      - '9090:9090'

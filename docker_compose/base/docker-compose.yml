@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  hadoop-master:
+    image: '${HADOOP_BASE_IMAGE}:${DOCKER_IMAGES_VERSION}'
+    hostname: hadoop-master
+    ports:
+      - '${HIVE_PROXY_PORT}:1180'
+      - '5006:5006'
+      - '8020:8020'
+      - '8042:8042'
+      - '8088:8088'
+      - '9000:9000'
+      - '9083:9083'
+      - '10000:10000'
+      - '19888:19888'
+      - '50070:50070'
+      - '50075:50075'
+      - '50010:50010'
+      - '50020:50020'
+
