@@ -8,8 +8,8 @@
     <value>300</value>
   </property>
   <property>
-      <name>hive.metastore.warehouse.dir</name>
-      <value>hdfs://hadoop-namenode/hive</value>
+    <name>hive.metastore.warehouse.dir</name>
+    <value>hdfs://hadoop-namenode/hive</value>
   </property>
   <property>
     <name>javax.jdo.option.ConnectionURL</name>
