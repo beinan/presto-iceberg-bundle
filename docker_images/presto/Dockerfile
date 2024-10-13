@@ -2,6 +2,9 @@ FROM centos:7
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+
 RUN yum install -y tzdata openssl curl ca-certificates fontconfig gzip tar \
     && yum update -y; yum clean all
 
@@ -24,9 +27,7 @@ RUN mkdir -p /opt/java/openjdk; \
 
 RUN yum install -y setuptools epel-release && \
     yum install -y python-pip && \
-    pip install --upgrade pip==9.0.3 && \
-    pip install --upgrade setuptools==36.8.0 `# latest version for Python 2.6` && \
-    pip install supervisor && \
+    pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host=files.pythonhosted.org supervisor && \
     yum install -y vim;
 
 # cleanup

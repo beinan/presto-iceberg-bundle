@@ -42,6 +42,6 @@ if [[ -z "${PRESTO_SERVER_DIR:-}" ]]; then
     fi
     source "${PRESTO_PROJECT_DIR}/presto-product-tests/target/classes/presto.env"
     echo "Presto version found ${PRESTO_VERSION}"
-    PRESTO_SERVER_DIR="${PRESTO_PROJECT_DIR}/presto-server/target/presto-server-${PRESTO_VERSION}/presto-server-${PRESTO_VERSION}/"
+    PRESTO_SERVER_DIR="${PRESTO_PROJECT_DIR}/presto-server/target/presto-server-${PRESTO_VERSION}/"
 fi
 export_canonical_path PRESTO_SERVER_DIR
